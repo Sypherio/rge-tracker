@@ -10,8 +10,9 @@ module RGE
       mechanize = Mechanize.new
       prev_outages = 0
       loop do
+        # total_customers = mechanize.get(RGE_SITE).body.split('&nbsp;</th><th>')[1].split(' ')[0].gsub(',', '').to_f
         total_customers = mechanize.get(RGE_SITE).body.split('service to ')[1].split(' ')[0].delete(',').to_f
-        curr_outages = mechanize.get(RGE_SITE).body.split('&nbsp;</th><th>')[1].split('</th></tr>')[0].delete(',').to_f
+        curr_outages = mechanize.get(RGE_SITE).body.split('&nbsp;</th><th>&nbsp;</th><th>')[1].split('</th></tr>')[0].delete(',').to_f
         percent_outages = (curr_outages / total_customers * 100).round(1)
         write_str = "#{curr_outages.to_i} outages (#{percent_outages}\%)"
         write_outages("#{(curr_outages - prev_outages).to_i} customers have lost power!") if curr_outages > prev_outages
@@ -24,6 +25,7 @@ module RGE
 
     def write_outages(curr_outages)
       `touch #{LOG_NAME}` unless File.exist?(LOG_NAME)
+      puts curr_outages
       File.open(LOG_NAME, 'a+') { |file| file.puts("#{Time.now.asctime}: #{curr_outages}") }
     end
   end

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'gli'
-require_relative 'lib/rge'
+require_relative '../lib/rge'
 include GLI::App
 
 program_desc "A tool that logs changes in RGE's outage reports"
