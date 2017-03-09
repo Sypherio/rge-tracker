@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
-gem "gli"
-gem "mechanize"
+gem 'gli'
+gem 'mechanize'
