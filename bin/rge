@@ -4,6 +4,18 @@ require_relative '../lib/rge'
 include GLI::App
 
 program_desc "A tool that logs changes in RGE's outage reports"
-RGE::TrendFinder.new.find_outages
+
+
+desc "Constantly collect and log RGE's power outage reports"
+command :collect do |c|
+  c.flag [:'road'], desc: 'A road name to track the power status of'
+  c.action do |_global_options, options, _args|
+    begin
+      RGE::TrendFinder.new.find_outages(options)
+    rescue StandardError => e
+      puts("#{e.inspect}#{"\n" + e.backtrace.join("\n")}")
+    end
+  end
+end
 
 exit run(ARGV)

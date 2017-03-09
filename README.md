@@ -9,4 +9,8 @@ Install `bundler`, and then run
 
 To start the tool, run
 
-    bin/rge
+    bin/rge collect
+
+If you want periodic updates on whether your street has power (i.e. 'john st'), run
+
+    bin/rge collect --road 'john st'
