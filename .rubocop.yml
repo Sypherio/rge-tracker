@@ -1,0 +1,10 @@
+Documentation:
+  Enabled: false
+
+# SOIDs don't need commas
+NumericLiterals:
+  MinDigits: 14
+
+# 80 is rather short
+LineLength:
+  Max: 120
